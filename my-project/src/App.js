@@ -28,34 +28,44 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col ">
+    <div className="min-h-screen flex flex-col bg-gradient-to-r from-rose-500 via-red-400 to-red-500">
       {/* 1. Header  */}
-      <div className="mx-auto my-6 text-2xl">Science Quiz</div>
+      <div className="mx-auto my-6 font-extrabold text-2xl">Science Quiz</div>
 
       {/* 2. Current Score  */}
-      <div className="mx-auto my-6 text-2xl">Score: {score}</div>
+      <div className="mx-auto my-6 font-bold text-2xl">Score: {score}</div>
 
       {/* 3. Show results or show the question game  */}
-      <div className="mx-auto my-20 w-2/3 h-96 p-8 border rounded-lg shadow-lg bg-indigo-800 text-white text-center ">
+      <div
+        className="mx-auto my-16 w-2/3 h-96 p-8 
+         border-0 rounded-lg shadow-xl bg-indigo-800 text-white text-center "
+      >
         {showResults ? (
           /* 4. Final Results */
-          <div className="final-results">
-            <h1>Final Results</h1>
-            <h2>
+          <div>
+            <h1 className="text-lg mb-10 font-bold">Final Results</h1>
+            <h2 className="text-lg mb-10 font-bold">
               {score} out of {questions.length} correct - (
               {(score / questions.length) * 100}%)
             </h2>
-            <button onClick={() => restartGame()}>Restart game</button>
+            <div
+              className="bg-green-600 w-2/3 mt-11 cursor-pointer rounded-lg mx-auto text-lg mb-10 font-bold"
+              onClick={() => restartGame()}
+            >
+              Restart game
+            </div>
           </div>
         ) : (
           /* 5. Question Card  */
-          <div className="">
+          <div>
             {/* Current Question  */}
             <div
-              className="mb-4 font-extrabold w-full bg-clip-text 
+              className="mb-4 text-lg font-extrabold w-full bg-clip-text 
              text-transparent bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 "
             >
-              Question: {currentQuestion + 1} out of {questions.length}
+              <span className="text-white">
+                Question: {currentQuestion + 1} out of {questions.length}
+              </span>
               <div className="">{questions[currentQuestion].text}</div>
             </div>
 
@@ -66,7 +76,7 @@ const App = () => {
                   <li
                     key={option.id}
                     onClick={() => optionClicked(option.isCorrect)}
-                    className="mb-10 cursor-pointer rounded-xl bg-white text-indigo-800"
+                    className="mb-10 cursor-pointer rounded-xl bg-white text-indigo-800 hover:font-bold"
                   >
                     {option.text}
                   </li>
