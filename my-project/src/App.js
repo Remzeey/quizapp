@@ -49,7 +49,8 @@ const App = () => {
               {(score / questions.length) * 100}%)
             </h2>
             <div
-              className="bg-green-600 w-2/3 mt-11 cursor-pointer rounded-lg mx-auto text-lg mb-10 font-bold"
+              className="bg-green-600 w-2/3 mt-11 cursor-pointer 
+              transition duration-150 delay-100 ease-in-out hover:scale-110 rounded-lg mx-auto text-lg mb-10 font-bold"
               onClick={() => restartGame()}
             >
               Restart game
@@ -76,7 +77,7 @@ const App = () => {
                   <li
                     key={option.id}
                     onClick={() => optionClicked(option.isCorrect)}
-                    className="mb-10 cursor-pointer rounded-xl bg-white text-indigo-800 hover:font-bold"
+                    className="mb-10 cursor-pointer rounded-xl list-disc bg-white text-indigo-800 hover:font-bold"
                   >
                     {option.text}
                   </li>
