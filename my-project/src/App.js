@@ -5,6 +5,7 @@ const App = () => {
   const [showResults, setShowResults] = useState(false);
   const [score, setScore] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [question, setQuestion] = useState(questions);
 
   /* A possible answer was clicked */
   const optionClicked = (isCorrect) => {
@@ -13,7 +14,7 @@ const App = () => {
       setScore(score + 1);
     }
 
-    if (currentQuestion + 1 < questions.length) {
+    if (currentQuestion + 1 < question.length) {
       setCurrentQuestion(currentQuestion + 1);
     } else {
       setShowResults(true);
@@ -22,6 +23,19 @@ const App = () => {
 
   /* Resets the game back to default */
   const restartGame = () => {
+    let oldQuestions = question,
+      newQuestions = [],
+      i = oldQuestions.length,
+      j = 0;
+
+    while (i--) {
+      j = Math.floor(Math.random() * (i + 1));
+      newQuestions.push(oldQuestions[j]);
+      oldQuestions.splice(j, 1);
+    }
+
+    setQuestion(newQuestions);
+
     setScore(0);
     setCurrentQuestion(0);
     setShowResults(false);
@@ -45,8 +59,8 @@ const App = () => {
           <div>
             <h1 className="text-lg mb-10 font-bold">Final Results</h1>
             <h2 className="text-lg mb-10 font-bold">
-              {score} out of {questions.length} correct - (
-              {(score / questions.length) * 100}%)
+              {score} out of {question.length} correct - (
+              {(score / question.length) * 100}%)
             </h2>
             <div
               className="bg-green-600 w-2/3 mt-11 cursor-pointer 
@@ -65,14 +79,14 @@ const App = () => {
              text-transparent bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 "
             >
               <span className="text-white">
-                Question: {currentQuestion + 1} out of {questions.length}
+                Question: {currentQuestion + 1} out of {question.length}
               </span>
-              <div className="">{questions[currentQuestion].text}</div>
+              <div>{question[currentQuestion].text}</div>
             </div>
 
             {/* List of possible answers  */}
             <ul>
-              {questions[currentQuestion].options.map((option) => {
+              {question[currentQuestion].options.map((option) => {
                 return (
                   <li
                     key={option.id}
@@ -86,6 +100,9 @@ const App = () => {
             </ul>
           </div>
         )}
+      </div>
+      <div className="bg-indigo-800 w-full text-center text-white font-bold ">
+        Copyright © Created by Remzeey and Pearl{" "}
       </div>
     </div>
   );
