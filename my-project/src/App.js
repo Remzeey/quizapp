@@ -6,13 +6,14 @@ const App = () => {
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <Navbar />
-      <div className="text-center p-4 mt-12 mb-16">
-        <h1 className="text-xl font-bold mb-8 ">Welcome to Science Quiz</h1>
-        <p className="text-lg">
+      <div className="text-center p-4 mt-24 mb-16">
+        <h1 className="text-2xl font-bold mb-8 ">Welcome to Science Quiz</h1>
+        <p className="text-xl mt-24 leading-10">
           Take our quick quiz, to help you grade <br></br> your knowledge about
           general science.<br></br>Our quiz comprises of various questions
           <br></br> from Easy, Medium, Hard. You get instant corrections.
           <br></br> These Sets of questions would help build your understanding.
+          <br></br>
           You can begin the quiz.
         </p>
       </div>

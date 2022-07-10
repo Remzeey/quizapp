@@ -69,7 +69,7 @@ const Quiz = () => {
 
       {/* 3. Show results or show the question game  */}
       <div
-        className="mx-auto my-4 w-2/3 max-h-fit p-8 
+        className="mx-auto mt-4 mb-56 w-2/3 max-h-fit p-8 
          border-0 rounded-lg shadow-xl bg-indigo-800 text-white text-center "
       >
         {showResults ? (
@@ -92,11 +92,8 @@ const Quiz = () => {
           /* 5. Question Card  */
           <div>
             {/* Current Question  */}
-            <div
-              className="mb-4 font-extrabold w-full bg-clip-text 
-             text-transparent bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 "
-            >
-              <span className="text-white">
+            <div className="mb-4 font-extrabold w-full text-white ">
+              <span className="text-pink-400">
                 Question: {currentQuestion + 1} out of {question.length}
               </span>
               <div>{question[currentQuestion].text}</div>
@@ -109,7 +106,7 @@ const Quiz = () => {
                   <li
                     key={option.id}
                     onClick={() => optionClicked(option.isCorrect)}
-                    className={`mb-10 cursor-pointer bg-white text-indigo-700 rounded-xl  hover:font-bold
+                    className={`mb-10 cursor-pointer bg-white text-indigo-700 rounded-xl hover:bg-blue-300 hover:font-bold
                       ${correct && option.isCorrect ? "bg-green-700 " : ""}
                       ${notCorrect && option.isCorrect ? "bg-green-700 " : ""}
                     
