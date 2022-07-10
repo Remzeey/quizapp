@@ -14,6 +14,10 @@ const Quiz = () => {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
   };
 
+  const quit = () => {
+    setShowResults(true);
+  };
+
   /* A possible answer was clicked */
   const optionClicked = async (isCorrect) => {
     // Increment the score
@@ -85,7 +89,7 @@ const Quiz = () => {
               transition duration-150 delay-100 ease-in-out hover:scale-110 rounded-lg mx-auto text-lg mb-10 font-bold"
               onClick={() => restartGame()}
             >
-              Restart game
+              Restart quiz
             </div>
           </div>
         ) : (
@@ -106,7 +110,7 @@ const Quiz = () => {
                   <li
                     key={option.id}
                     onClick={() => optionClicked(option.isCorrect)}
-                    className={`mb-10 cursor-pointer bg-white text-indigo-700 rounded-xl hover:bg-blue-300 hover:font-bold
+                    className={`mb-10 cursor-pointer bg-white text-indigo-700 rounded-xl  hover:font-bold
                       ${correct && option.isCorrect ? "bg-green-700 " : ""}
                       ${notCorrect && option.isCorrect ? "bg-green-700 " : ""}
                     
@@ -119,6 +123,13 @@ const Quiz = () => {
                 );
               })}
             </ul>
+            <div
+              className="bg-red-600 w-2/3 mt-4 cursor-pointer 
+              transition duration-150 delay-100 ease-in-out hover:scale-110 rounded-lg mx-auto text-lg mb-10 font-bold"
+              onClick={() => quit()}
+            >
+              Quit
+            </div>
           </div>
         )}
       </div>
