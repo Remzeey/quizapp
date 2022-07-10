@@ -6,12 +6,27 @@ const App = () => {
   const [score, setScore] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [question, setQuestion] = useState(questions);
+  const [correct, setCorrect] = useState(false);
+  const [notCorrect, setNotCorrect] = useState(false);
+
+  const sleep = (milliseconds) => {
+    return new Promise((resolve) => setTimeout(resolve, milliseconds));
+  };
 
   /* A possible answer was clicked */
-  const optionClicked = (isCorrect) => {
+  const optionClicked = async (isCorrect) => {
     // Increment the score
     if (isCorrect) {
       setScore(score + 1);
+      setCorrect(true);
+      await sleep(1000);
+      setCorrect(false);
+    }
+
+    if (!isCorrect) {
+      setNotCorrect(true);
+      await sleep(1000);
+      setNotCorrect(false);
     }
 
     if (currentQuestion + 1 < question.length) {
@@ -23,6 +38,7 @@ const App = () => {
 
   /* Resets the game back to default */
   const restartGame = () => {
+    // This generates an array of new questions on every restart
     let oldQuestions = question,
       newQuestions = [],
       i = oldQuestions.length,
@@ -51,7 +67,7 @@ const App = () => {
 
       {/* 3. Show results or show the question game  */}
       <div
-        className="mx-auto my-16 w-2/3 h-96 p-8 
+        className="mx-auto my-16 w-2/3 max-h-fit p-8 
          border-0 rounded-lg shadow-xl bg-indigo-800 text-white text-center "
       >
         {showResults ? (
@@ -91,7 +107,13 @@ const App = () => {
                   <li
                     key={option.id}
                     onClick={() => optionClicked(option.isCorrect)}
-                    className="mb-10 cursor-pointer rounded-xl list-disc bg-white text-indigo-800 hover:font-bold"
+                    className={`mb-10 cursor-pointer bg-white text-indigo-700 rounded-xl  hover:font-bold
+                      ${correct && option.isCorrect ? "bg-green-700 " : ""}
+                      ${notCorrect && option.isCorrect ? "bg-green-700 " : ""}
+                    
+                    `}
+                    // ${correct && !option.isCorrect ? "bg-red-500 " : ""}
+                    // ${notCorrect && !option.isCorrect ? "bg-red-500 " : ""}
                   >
                     {option.text}
                   </li>
