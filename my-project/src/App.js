@@ -1,132 +1,32 @@
-import React, { useState } from "react";
-import { questions } from "./questions";
+import React from "react";
+import { Link } from "react-router-dom";
+import Navbar from "./component/Navbar";
 
 const App = () => {
-  const [showResults, setShowResults] = useState(false);
-  const [score, setScore] = useState(0);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [question, setQuestion] = useState(questions);
-  const [correct, setCorrect] = useState(false);
-  const [notCorrect, setNotCorrect] = useState(false);
-
-  const sleep = (milliseconds) => {
-    return new Promise((resolve) => setTimeout(resolve, milliseconds));
-  };
-
-  /* A possible answer was clicked */
-  const optionClicked = async (isCorrect) => {
-    // Increment the score
-    if (isCorrect) {
-      setScore(score + 1);
-      setCorrect(true);
-      await sleep(1000);
-      setCorrect(false);
-    }
-
-    if (!isCorrect) {
-      setNotCorrect(true);
-      await sleep(1000);
-      setNotCorrect(false);
-    }
-
-    if (currentQuestion + 1 < question.length) {
-      setCurrentQuestion(currentQuestion + 1);
-    } else {
-      setShowResults(true);
-    }
-  };
-
-  /* Resets the game back to default */
-  const restartGame = () => {
-    // This generates an array of new questions on every restart
-    let oldQuestions = question,
-      newQuestions = [],
-      i = oldQuestions.length,
-      j = 0;
-
-    while (i--) {
-      j = Math.floor(Math.random() * (i + 1));
-      newQuestions.push(oldQuestions[j]);
-      oldQuestions.splice(j, 1);
-    }
-
-    setQuestion(newQuestions);
-
-    setScore(0);
-    setCurrentQuestion(0);
-    setShowResults(false);
-  };
-
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-r from-rose-500 via-red-400 to-red-500">
-      {/* 1. Header  */}
-      <div className="mx-auto my-6 font-extrabold text-2xl">Science Quiz</div>
-
-      {/* 2. Current Score  */}
-      <div className="mx-auto my-6 font-bold text-2xl">Score: {score}</div>
-
-      {/* 3. Show results or show the question game  */}
-      <div
-        className="mx-auto my-16 w-2/3 max-h-fit p-8 
-         border-0 rounded-lg shadow-xl bg-indigo-800 text-white text-center "
-      >
-        {showResults ? (
-          /* 4. Final Results */
-          <div>
-            <h1 className="text-lg mb-10 font-bold">Final Results</h1>
-            <h2 className="text-lg mb-10 font-bold">
-              {score} out of {question.length} correct - (
-              {(score / question.length) * 100}%)
-            </h2>
-            <div
-              className="bg-green-600 w-2/3 mt-11 cursor-pointer 
-              transition duration-150 delay-100 ease-in-out hover:scale-110 rounded-lg mx-auto text-lg mb-10 font-bold"
-              onClick={() => restartGame()}
-            >
-              Restart game
-            </div>
-          </div>
-        ) : (
-          /* 5. Question Card  */
-          <div>
-            {/* Current Question  */}
-            <div
-              className="mb-4 text-lg font-extrabold w-full bg-clip-text 
-             text-transparent bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 "
-            >
-              <span className="text-white">
-                Question: {currentQuestion + 1} out of {question.length}
-              </span>
-              <div>{question[currentQuestion].text}</div>
-            </div>
-
-            {/* List of possible answers  */}
-            <ul>
-              {question[currentQuestion].options.map((option) => {
-                return (
-                  <li
-                    key={option.id}
-                    onClick={() => optionClicked(option.isCorrect)}
-                    className={`mb-10 cursor-pointer bg-white text-indigo-700 rounded-xl  hover:font-bold
-                      ${correct && option.isCorrect ? "bg-green-700 " : ""}
-                      ${notCorrect && option.isCorrect ? "bg-green-700 " : ""}
-                    
-                    `}
-                    // ${correct && !option.isCorrect ? "bg-red-500 " : ""}
-                    // ${notCorrect && !option.isCorrect ? "bg-red-500 " : ""}
-                  >
-                    {option.text}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        )}
+    <div className="min-h-screen flex flex-col bg-white">
+      <Navbar />
+      <div className="text-center p-4 mt-12 mb-16">
+        <h1 className="text-xl font-bold mb-8 ">Welcome to Science Quiz</h1>
+        <p className="text-lg">
+          Take our quick quiz, to help you grade <br></br> your knowledge about
+          general science.<br></br>Our quiz comprises of various questions
+          <br></br> from Easy, Medium, Hard. You get instant corrections.
+          <br></br> These Sets of questions would help build your understanding.
+          You can begin the quiz.
+        </p>
       </div>
-      <div className="bg-indigo-800 w-full text-center text-white font-bold ">
+      <div
+        className=" mx-auto 
+      transition duration-150 delay-100 ease-in-out hover:scale-110 text-center w-24 h-8 rounded-lg shadow-lg font-bold bg-green-600 text-white"
+      >
+        <Link to="/quiz">Start quiz</Link>
+      </div>
+      <div className="bg-indigo-800 mt-52 w-full text-center text-white font-bold ">
         Copyright © Created by Remzeey and Pearl{" "}
       </div>
     </div>
   );
 };
+
 export default App;
